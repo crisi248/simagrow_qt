@@ -20,7 +20,7 @@
    <string>Incidencias</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QListWidget" name="listWidget">
+   <widget class="QListWidget" name="listaIncidencias">
     <property name="geometry">
      <rect>
       <x>15</x>
@@ -53,13 +53,13 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="labelIdIncidencia_2">
+   <widget class="QLabel" name="labelIdIncidencia">
     <property name="geometry">
      <rect>
       <x>550</x>
       <y>40</y>
-      <width>201</width>
-      <height>18</height>
+      <width>231</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
@@ -82,10 +82,10 @@
    <widget class="QLabel" name="labelUbicacion">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>535</x>
       <y>60</y>
-      <width>201</width>
-      <height>18</height>
+      <width>241</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
@@ -108,10 +108,10 @@
    <widget class="QLabel" name="labelUsuario">
     <property name="geometry">
      <rect>
-      <x>510</x>
+      <x>520</x>
       <y>220</y>
-      <width>201</width>
-      <height>18</height>
+      <width>261</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
@@ -134,17 +134,17 @@
    <widget class="QLabel" name="labelIdUsuario">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>540</x>
       <y>240</y>
-      <width>201</width>
-      <height>18</height>
+      <width>241</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox">
+   <widget class="QCheckBox" name="checkBoxResuelto">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -173,7 +173,7 @@
      <string>Propiedades de la Incidencia</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="btGuardar">
     <property name="geometry">
      <rect>
       <x>660</x>
@@ -186,7 +186,7 @@
      <string>Guardar Cambios</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_6">
+   <widget class="QLabel" name="labelAdvertencia">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -209,7 +209,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>30</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

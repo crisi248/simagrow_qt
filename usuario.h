@@ -9,6 +9,4 @@ public:
     QString nombre, apellidos, correo;
 
 };
-
-
 #endif
