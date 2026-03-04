@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ventanaprincipal.ui'
 **
-** Created by: Qt User Interface Compiler version 5.15.17
+** Created by: Qt User Interface Compiler version 5.15.10
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -38,7 +38,7 @@ public:
     QLabel *label_4;
     QLabel *labelIdUsuario;
     QCheckBox *checkBoxResuelto;
-    QLabel *label_5;
+    QLabel *labelTitulo;
     QPushButton *btGuardar;
     QLabel *labelAdvertencia;
     QMenuBar *menubar;
@@ -89,13 +89,13 @@ public:
         checkBoxResuelto = new QCheckBox(centralwidget);
         checkBoxResuelto->setObjectName(QString::fromUtf8("checkBoxResuelto"));
         checkBoxResuelto->setGeometry(QRect(460, 270, 151, 22));
-        label_5 = new QLabel(centralwidget);
-        label_5->setObjectName(QString::fromUtf8("label_5"));
-        label_5->setGeometry(QRect(460, 0, 321, 41));
-        label_5->setStyleSheet(QString::fromUtf8("font-weight: bold; font-size: 16pt;"));
+        labelTitulo = new QLabel(centralwidget);
+        labelTitulo->setObjectName(QString::fromUtf8("labelTitulo"));
+        labelTitulo->setGeometry(QRect(460, 0, 321, 41));
+        labelTitulo->setStyleSheet(QString::fromUtf8("font-weight: bold; font-size: 16pt;"));
         btGuardar = new QPushButton(centralwidget);
         btGuardar->setObjectName(QString::fromUtf8("btGuardar"));
-        btGuardar->setGeometry(QRect(660, 300, 121, 34));
+        btGuardar->setGeometry(QRect(660, 290, 121, 34));
         labelAdvertencia = new QLabel(centralwidget);
         labelAdvertencia->setObjectName(QString::fromUtf8("labelAdvertencia"));
         labelAdvertencia->setGeometry(QRect(460, 290, 181, 18));
@@ -103,7 +103,7 @@ public:
         VentanaPrincipal->setCentralWidget(centralwidget);
         menubar = new QMenuBar(VentanaPrincipal);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 22));
+        menubar->setGeometry(QRect(0, 0, 800, 30));
         VentanaPrincipal->setMenuBar(menubar);
         statusbar = new QStatusBar(VentanaPrincipal);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -126,7 +126,7 @@ public:
         label_4->setText(QCoreApplication::translate("VentanaPrincipal", "Id Usuario:", nullptr));
         labelIdUsuario->setText(QString());
         checkBoxResuelto->setText(QCoreApplication::translate("VentanaPrincipal", "Incidencia Resuelta", nullptr));
-        label_5->setText(QCoreApplication::translate("VentanaPrincipal", "Propiedades de la Incidencia", nullptr));
+        labelTitulo->setText(QCoreApplication::translate("VentanaPrincipal", "Propiedades de la Incidencia", nullptr));
         btGuardar->setText(QCoreApplication::translate("VentanaPrincipal", "Guardar Cambios", nullptr));
         labelAdvertencia->setText(QString());
     } // retranslateUi

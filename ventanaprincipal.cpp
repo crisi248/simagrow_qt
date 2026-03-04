@@ -1,6 +1,5 @@
 #include "ventanaprincipal.h"
 
-
 #include <QPainter>
 #include <QColor>
 #include <QTimer>
@@ -47,6 +46,7 @@ void VentanaPrincipal::slotCargarDatosIncidencia(QListWidgetItem* item) {
 
         incidenciaActual = incidencias.at(listaIncidencias->row(item));
 
+        labelTitulo->setText(incidenciaActual->titulo);
         labelIdIncidencia->setText(QString::number(incidenciaActual->idIncidencia));
         labelUbicacion->setText(incidenciaActual->ubicacion);
         textoDescripcion->setText(incidenciaActual->descripcion);
@@ -61,7 +61,7 @@ void VentanaPrincipal::slotCargarDatosIncidencia(QListWidgetItem* item) {
 void VentanaPrincipal::inicializarIncidencias() {
         incidencias.clear();
         for (int i = 0; i < 10 ; i++ ) {
-                Incidencia * incidencia = new Incidencia(i, QString("Descripcion de la incidencia"), QString("Aula de informática"), false, (i*10 + 6), QString("Usuario" ) + QString::number(i));
+                Incidencia * incidencia = new Incidencia(i, QString("Descripcion de la incidencia"), QString("Título de la incidencia"), QString("Aula de informática"), false, (i*10 + 6), QString("Usuario" ) + QString::number(i));
                 incidencias.append(incidencia);
         }
         reiniciarLista(TODOS);
@@ -77,8 +77,8 @@ void VentanaPrincipal::reiniciarLista(Filtro filtro) {
 
                 QString cadena = QString("Id: %1\t%2\t%3")
                 .arg(inc->idIncidencia)
-                .arg(inc->ubicacion)
-                .arg(inc->resuelta ? "resuelta" : "sin resolver");
+                .arg(inc->titulo)
+                .arg(inc->ubicacion);
 
                 QListWidgetItem *item = new QListWidgetItem(cadena);
                 item->setIcon(QApplication::style()->standardIcon(

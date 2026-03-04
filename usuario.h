@@ -5,8 +5,9 @@
 class Usuario {
 
 public:
-    Usuario(QString,QString,QString);
+    Usuario(QString,QString,QString, bool);
     QString nombre, apellidos, correo;
+    bool isAdmin;
 
 };
 #endif

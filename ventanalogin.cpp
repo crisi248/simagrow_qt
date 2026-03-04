@@ -1,5 +1,6 @@
 
 #include "ventanalogin.h"
+#include "userapiclient.h"
 #include <QDebug>
 
 VentanaLogin::VentanaLogin(QWidget *parent): QMainWindow(parent){
@@ -20,6 +21,10 @@ void VentanaLogin::slotLogin(){
 	QString correo = lineEditCorreo->text();
 	QString pass = lineEditPass->text();
 
+	labelErrorUsuario->clear();
+	labelErrorPass->clear();
+	labelErrorInicio->clear();
+
 	if(correo.isEmpty()) {
 		labelErrorUsuario->setText("Campo obligatorio");
 		error = true;
@@ -29,24 +34,46 @@ void VentanaLogin::slotLogin(){
 		error = true;
 	}
 
-	// FALTA VERIFICACION DE USUARIO
-	if(correo.isEmpty() || pass.isEmpty()) {
-		labelErrorInicio->setText("El usuario o contraseña incorrectos");
-		error = true;
-	}
-
 	if (error) {
 		return;
 	}
 
-	usuario = new Usuario("Nombre", "Apellido1 Apellido2", "correoelectronico@prueba.com");
+	UserApiClient * userApiClient = new UserApiClient(correo, pass);
 
-	qDebug() << "Bienvenido " << usuario->nombre;
+	connect(userApiClient,SIGNAL(senyalDatosRecibidos(QByteArray)),
+				this,SLOT(slotDatosRecibidos(QByteArray)));
 
+	connect(userApiClient,SIGNAL(senyalErrorPeticion(QByteArray)),
+				this,SLOT(slotErrorPeticion(QString)));
+
+	// FALTA VERIFICACION DE USUARIO
+
+	/*
+	usuario = new Usuario("Nombre", "Apellido1 Apellido2", "correoelectronico@prueba.com", false);
 	VentanaPrincipal * ventana = new VentanaPrincipal(usuario);
 	ventana->show();
 
 	 this->close();
 	 this->deleteLater();
+	 */
+
+}
+
+void VentanaLogin::slotDatosRecibidos(){
+	if (usuario->isAdmin == false) {
+		labelErrorInicio->setText("El usuario " + usuario->nombre + " no es administrador");
+		return;
+	}
+
+	VentanaPrincipal * ventana = new VentanaPrincipal(usuario);
+	ventana->show();
+
+	this->close();
+	this->deleteLater();
+
+}
+
+void VentanaLogin::slotErrorPeticion(){
+	labelErrorInicio->setText("El usuario o contraseña incorrectos");
 }
 

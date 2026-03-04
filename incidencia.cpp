@@ -1,6 +1,6 @@
 #include"incidencia.h"
 
-Incidencia::Incidencia(int idIncidenciaPasada, QString descripcionPasada, QString ubicacionPasada, bool resueltaPasada, int idUsuarioReportePasado, QString nombreUsuarioReportePasado) {
+Incidencia::Incidencia(int idIncidenciaPasada, QString descripcionPasada,QString tituloPasado, QString ubicacionPasada, bool resueltaPasada, int idUsuarioReportePasado, QString nombreUsuarioReportePasado) {
 
     idIncidencia = idIncidenciaPasada;
     descripcion = descripcionPasada;
@@ -9,4 +9,5 @@ Incidencia::Incidencia(int idIncidenciaPasada, QString descripcionPasada, QStrin
     ubicacion = ubicacionPasada;
     idUsuarioReporte = idUsuarioReportePasado;
     nombreUsuarioReporte = nombreUsuarioReportePasado;
+    titulo = tituloPasado;
 }
