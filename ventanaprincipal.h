@@ -22,6 +22,8 @@ public:
     QVector<Incidencia*> incidencias;
     Incidencia * incidenciaActual;
 
+    bool cambioSinGuardar;
+
     QLabel* etiquetaUsuario;
     enum Filtro { TODOS, RESUELTOS, NO_RESUELTOS };
 
@@ -36,6 +38,9 @@ public slots:
     void slotGuardarIncidencia();
     void slotCargarDatosIncidencia(QListWidgetItem*);
     void slotRecargarIncidencias();
+
+    void slotIncidenciasRecibidas(QByteArray);
+    void slotErrorIncidencias();
 
     void slotFiltrarTodos();
     void slotFiltrarResueltos();

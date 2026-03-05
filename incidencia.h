@@ -9,6 +9,5 @@ public:
     int idIncidencia, idUsuarioReporte;
     QString titulo, nombreUsuarioReporte, descripcion, ubicacion;
     bool resuelta;
-
 };
 #endif

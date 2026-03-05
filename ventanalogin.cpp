@@ -1,6 +1,7 @@
 
 #include "ventanalogin.h"
 #include "userapiclient.h"
+#include "jsonuser.h"
 #include <QDebug>
 
 VentanaLogin::VentanaLogin(QWidget *parent): QMainWindow(parent){
@@ -40,11 +41,11 @@ void VentanaLogin::slotLogin(){
 
 	UserApiClient * userApiClient = new UserApiClient(correo, pass);
 
-	connect(userApiClient,SIGNAL(senyalDatosRecibidos(QByteArray)),
-				this,SLOT(slotDatosRecibidos(QByteArray)));
+	connect(userApiClient,SIGNAL(signalUsuarioRecibido(QByteArray)),
+				this,SLOT(slotUsuarioRecibido(QByteArray)));
 
-	connect(userApiClient,SIGNAL(senyalErrorPeticion(QByteArray)),
-				this,SLOT(slotErrorPeticion(QString)));
+	connect(userApiClient,SIGNAL(signalErrorPeticion()),
+				this,SLOT(slotErrorPeticion()));
 
 	// FALTA VERIFICACION DE USUARIO
 
@@ -59,7 +60,11 @@ void VentanaLogin::slotLogin(){
 
 }
 
-void VentanaLogin::slotDatosRecibidos(){
+void VentanaLogin::slotUsuarioRecibido(QByteArray datosRecibidos){
+
+	JsonUser parser(datosRecibidos);
+	usuario = new Usuario(*parser.getUser());
+
 	if (usuario->isAdmin == false) {
 		labelErrorInicio->setText("El usuario " + usuario->nombre + " no es administrador");
 		return;

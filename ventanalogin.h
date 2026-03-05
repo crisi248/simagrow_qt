@@ -19,8 +19,8 @@ public:
 
 public slots:
 	void slotLogin();
-	void slotDatosRecibidos(QByteArray);
-	void slotErrorPeticion(QString);
+	void slotUsuarioRecibido(QByteArray);
+	void slotErrorPeticion();
 
 };
 

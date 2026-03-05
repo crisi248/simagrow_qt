@@ -5,6 +5,7 @@
 #include <QNetworkReply>
 #include <QUrl>
 #include <QUrlQuery>
+#include <QTimer>
 
 UserApiClient::UserApiClient(QString correoBuscado, QString passBuscada, QObject * parent): QObject(parent){
 
@@ -13,21 +14,33 @@ UserApiClient::UserApiClient(QString correoBuscado, QString passBuscada, QObject
 	connect(manager,SIGNAL(finished(QNetworkReply *)),
 			this,SLOT(slotRespuestaFinalizada(QNetworkReply *)));
 
-	fetch(correoBuscado, passBuscada);
+	// JSON TEMPORAL
+	QByteArray jsonFalso = R"({
+        "id": 7,
+        "nombre": "Pepe",
+        "apellidos": "García",
+        "email": "pepe@alu.edu.gva.es",
+        "admin": true
+    })";
+    QTimer::singleShot(0, this, [this, jsonFalso]() {
+        emit signalUsuarioRecibido(jsonFalso);
+    });
+
+	//fetch(correoBuscado, passBuscada);
 }
 
 void UserApiClient::slotRespuestaFinalizada(QNetworkReply * respuesta){
 
 	if (respuesta->error() != QNetworkReply::NoError) {
 		qDebug() << "Error " << respuesta->error() ;
-		emit senyalErrorPeticion(QString::number(respuesta->error()));
+		emit signalErrorPeticion();
 		return;
 	}
 
 	QByteArray datosCrudos = respuesta->readAll();
 	QString textoRecibido = QString(datosCrudos);
 
-	emit senyalDatosRecibidos(datosCrudos);
+	emit signalUsuarioRecibido(datosCrudos);
 
 }
 

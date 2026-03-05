@@ -4,8 +4,6 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
-
-
 class UserApiClient : public QObject {
 Q_OBJECT
 
@@ -21,8 +19,8 @@ public slots:
 	void slotRespuestaFinalizada(QNetworkReply * respuesta);
 
 signals:
-	void senyalDatosRecibidos(QByteArray);
-	void senyalErrorPeticion(QString);
+	void signalUsuarioRecibido(QByteArray);
+	void signalErrorPeticion();
 };
 
 

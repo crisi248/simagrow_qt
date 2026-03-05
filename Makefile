@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I. -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I. -I. -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = simagrow_qt1.0.0
 DISTDIR = /home/criguebra/Escriptori/simagrow_qt/.tmp/simagrow_qt1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -53,16 +53,28 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = incidencia.cpp \
+		incidenciasapiclient.cpp \
+		jsonincidencias.cpp \
+		jsonuser.cpp \
 		main.cpp \
+		userapiclient.cpp \
 		usuario.cpp \
 		ventanalogin.cpp \
-		ventanaprincipal.cpp moc_ventanalogin.cpp \
+		ventanaprincipal.cpp moc_incidenciasapiclient.cpp \
+		moc_userapiclient.cpp \
+		moc_ventanalogin.cpp \
 		moc_ventanaprincipal.cpp
 OBJECTS       = incidencia.o \
+		incidenciasapiclient.o \
+		jsonincidencias.o \
+		jsonuser.o \
 		main.o \
+		userapiclient.o \
 		usuario.o \
 		ventanalogin.o \
 		ventanaprincipal.o \
+		moc_incidenciasapiclient.o \
+		moc_userapiclient.o \
 		moc_ventanalogin.o \
 		moc_ventanaprincipal.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -148,10 +160,18 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		simagrow_qt.pro incidencia.h \
+		incidenciasapiclient.h \
+		jsonincidencias.h \
+		jsonuser.h \
+		userapiclient.h \
 		usuario.h \
 		ventanalogin.h \
 		ventanaprincipal.h incidencia.cpp \
+		incidenciasapiclient.cpp \
+		jsonincidencias.cpp \
+		jsonuser.cpp \
 		main.cpp \
+		userapiclient.cpp \
 		usuario.cpp \
 		ventanalogin.cpp \
 		ventanaprincipal.cpp
@@ -348,8 +368,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents incidencia.h usuario.h ventanalogin.h ventanaprincipal.h $(DISTDIR)/
-	$(COPY_FILE) --parents incidencia.cpp main.cpp usuario.cpp ventanalogin.cpp ventanaprincipal.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents incidencia.h incidenciasapiclient.h jsonincidencias.h jsonuser.h userapiclient.h usuario.h ventanalogin.h ventanaprincipal.h $(DISTDIR)/
+	$(COPY_FILE) --parents incidencia.cpp incidenciasapiclient.cpp jsonincidencias.cpp jsonuser.cpp main.cpp userapiclient.cpp usuario.cpp ventanalogin.cpp ventanaprincipal.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ventanalogin.ui ventanaprincipal.ui $(DISTDIR)/
 
 
@@ -382,9 +402,19 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_ventanalogin.cpp moc_ventanaprincipal.cpp
+compiler_moc_header_make_all: moc_incidenciasapiclient.cpp moc_userapiclient.cpp moc_ventanalogin.cpp moc_ventanaprincipal.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_ventanalogin.cpp moc_ventanaprincipal.cpp
+	-$(DEL_FILE) moc_incidenciasapiclient.cpp moc_userapiclient.cpp moc_ventanalogin.cpp moc_ventanaprincipal.cpp
+moc_incidenciasapiclient.cpp: incidenciasapiclient.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/criguebra/Escriptori/simagrow_qt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/criguebra/Escriptori/simagrow_qt -I/home/criguebra/Escriptori/simagrow_qt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include incidenciasapiclient.h -o moc_incidenciasapiclient.cpp
+
+moc_userapiclient.cpp: userapiclient.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/criguebra/Escriptori/simagrow_qt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/criguebra/Escriptori/simagrow_qt -I/home/criguebra/Escriptori/simagrow_qt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include userapiclient.h -o moc_userapiclient.cpp
+
 moc_ventanalogin.cpp: ventanalogin.h \
 		ui_ventanalogin.h \
 		ventanaprincipal.h \
@@ -393,7 +423,7 @@ moc_ventanalogin.cpp: ventanalogin.h \
 		incidencia.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/criguebra/Escriptori/simagrow_qt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/criguebra/Escriptori/simagrow_qt -I/home/criguebra/Escriptori/simagrow_qt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ventanalogin.h -o moc_ventanalogin.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/criguebra/Escriptori/simagrow_qt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/criguebra/Escriptori/simagrow_qt -I/home/criguebra/Escriptori/simagrow_qt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ventanalogin.h -o moc_ventanalogin.cpp
 
 moc_ventanaprincipal.cpp: ventanaprincipal.h \
 		ui_ventanaprincipal.h \
@@ -401,7 +431,7 @@ moc_ventanaprincipal.cpp: ventanaprincipal.h \
 		incidencia.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/criguebra/Escriptori/simagrow_qt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/criguebra/Escriptori/simagrow_qt -I/home/criguebra/Escriptori/simagrow_qt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ventanaprincipal.h -o moc_ventanaprincipal.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/criguebra/Escriptori/simagrow_qt/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/criguebra/Escriptori/simagrow_qt -I/home/criguebra/Escriptori/simagrow_qt -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ventanaprincipal.h -o moc_ventanaprincipal.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -431,6 +461,17 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 incidencia.o: incidencia.cpp incidencia.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o incidencia.o incidencia.cpp
 
+incidenciasapiclient.o: incidenciasapiclient.cpp incidenciasapiclient.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o incidenciasapiclient.o incidenciasapiclient.cpp
+
+jsonincidencias.o: jsonincidencias.cpp jsonincidencias.h \
+		incidencia.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o jsonincidencias.o jsonincidencias.cpp
+
+jsonuser.o: jsonuser.cpp jsonuser.h \
+		usuario.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o jsonuser.o jsonuser.cpp
+
 main.o: main.cpp ventanalogin.h \
 		ui_ventanalogin.h \
 		ventanaprincipal.h \
@@ -438,6 +479,9 @@ main.o: main.cpp ventanalogin.h \
 		usuario.h \
 		incidencia.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
+
+userapiclient.o: userapiclient.cpp userapiclient.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o userapiclient.o userapiclient.cpp
 
 usuario.o: usuario.cpp usuario.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o usuario.o usuario.cpp
@@ -447,14 +491,24 @@ ventanalogin.o: ventanalogin.cpp ventanalogin.h \
 		ventanaprincipal.h \
 		ui_ventanaprincipal.h \
 		usuario.h \
-		incidencia.h
+		incidencia.h \
+		userapiclient.h \
+		jsonuser.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ventanalogin.o ventanalogin.cpp
 
 ventanaprincipal.o: ventanaprincipal.cpp ventanaprincipal.h \
 		ui_ventanaprincipal.h \
 		usuario.h \
-		incidencia.h
+		incidencia.h \
+		incidenciasapiclient.h \
+		jsonincidencias.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ventanaprincipal.o ventanaprincipal.cpp
+
+moc_incidenciasapiclient.o: moc_incidenciasapiclient.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_incidenciasapiclient.o moc_incidenciasapiclient.cpp
+
+moc_userapiclient.o: moc_userapiclient.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_userapiclient.o moc_userapiclient.cpp
 
 moc_ventanalogin.o: moc_ventanalogin.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ventanalogin.o moc_ventanalogin.cpp
