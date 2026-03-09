@@ -3,7 +3,6 @@
 
 JsonIncidencias::JsonIncidencias(QByteArray bytes) {
     QJsonDocument documento(QJsonDocument::fromJson(bytes));
-    qDebug().noquote() << documento.toJson(QJsonDocument::Indented);
 
     if (!documento.isArray()) {
         qDebug() << "Error: el JSON no es un array";
@@ -22,13 +21,12 @@ JsonIncidencias::JsonIncidencias(QByteArray bytes) {
         QString apells  = objeto["usuarioApellidos"].toString();
         QString espacio = objeto["espacioNombre"].toString();
         bool resuelta   = objeto["resuelta"].toBool();
+        QString fecha = objeto["fechaIncidencia"].toString();
 
         QString nombreCompleto = nombre + " " + apells;
 
-        Incidencia* inc = new Incidencia(id, desc, titulo, espacio, resuelta, usuarioId, nombreCompleto);
+        Incidencia* inc = new Incidencia(id, desc, titulo, espacio, resuelta, usuarioId, nombreCompleto, fecha);
         incidencias.prepend(inc);
-
-        qDebug() << "Incidencia:" << id << titulo << espacio << resuelta;
     }
 }
 

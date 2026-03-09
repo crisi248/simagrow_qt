@@ -21,8 +21,8 @@ JsonUser::JsonUser(QByteArray bytes) {
         if (valor.isString())
             apellidos = valor.toString();
     }
-    if (claves.contains("email")) {
-        QJsonValue valor = objeto["email"];
+    if (claves.contains("correo")) {
+        QJsonValue valor = objeto["correo"];
         if (valor.isString())
             correo = valor.toString();
     }

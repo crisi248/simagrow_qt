@@ -44,8 +44,8 @@ void VentanaLogin::slotLogin(){
 	connect(userApiClient,SIGNAL(signalUsuarioRecibido(QByteArray)),
 				this,SLOT(slotUsuarioRecibido(QByteArray)));
 
-	connect(userApiClient,SIGNAL(signalErrorPeticion()),
-				this,SLOT(slotErrorPeticion()));
+	connect(userApiClient,SIGNAL(signalErrorPeticion(QString)),
+				this,SLOT(slotErrorPeticion(QString)));
 
 	// FALTA VERIFICACION DE USUARIO
 
@@ -78,7 +78,14 @@ void VentanaLogin::slotUsuarioRecibido(QByteArray datosRecibidos){
 
 }
 
-void VentanaLogin::slotErrorPeticion(){
-	labelErrorInicio->setText("El usuario o contraseña incorrectos");
+void VentanaLogin::slotErrorPeticion(QString respuesta){
+	qDebug() << respuesta;
+	if (respuesta == "203") {
+		labelErrorInicio->setText("El usuario o contraseña incorrectos");
+	}
+	if (respuesta == "201") {
+		labelErrorInicio->setText("El usuario no es administrador");
+	}
+
 }
 

@@ -20,7 +20,7 @@ public:
 public slots:
 	void slotLogin();
 	void slotUsuarioRecibido(QByteArray);
-	void slotErrorPeticion();
+	void slotErrorPeticion(QString);
 
 };
 

@@ -60,12 +60,12 @@ static const uint qt_meta_data_VentanaLogin[] = {
  // slots: name, argc, parameters, tag, flags
        1,    0,   29,    2, 0x0a /* Public */,
        3,    1,   30,    2, 0x0a /* Public */,
-       4,    0,   33,    2, 0x0a /* Public */,
+       4,    1,   33,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void, QMetaType::QByteArray,    2,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    2,
 
        0        // eod
 };
@@ -78,7 +78,7 @@ void VentanaLogin::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         switch (_id) {
         case 0: _t->slotLogin(); break;
         case 1: _t->slotUsuarioRecibido((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
-        case 2: _t->slotErrorPeticion(); break;
+        case 2: _t->slotErrorPeticion((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     }

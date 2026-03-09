@@ -41,6 +41,8 @@ public:
     QLabel *labelTitulo;
     QPushButton *btGuardar;
     QLabel *labelAdvertencia;
+    QLabel *label_5;
+    QLabel *labelFecha;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -62,27 +64,31 @@ public:
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(480, 40, 91, 18));
+        label->setStyleSheet(QString::fromUtf8("font-weight: bold;"));
         textoDescripcion = new QTextBrowser(centralwidget);
         textoDescripcion->setObjectName(QString::fromUtf8("textoDescripcion"));
-        textoDescripcion->setGeometry(QRect(480, 80, 321, 131));
+        textoDescripcion->setGeometry(QRect(480, 80, 321, 111));
         labelIdIncidencia = new QLabel(centralwidget);
         labelIdIncidencia->setObjectName(QString::fromUtf8("labelIdIncidencia"));
         labelIdIncidencia->setGeometry(QRect(570, 40, 231, 20));
         label_2 = new QLabel(centralwidget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setGeometry(QRect(480, 60, 71, 18));
+        label_2->setStyleSheet(QString::fromUtf8("font-weight: bold;"));
         labelUbicacion = new QLabel(centralwidget);
         labelUbicacion->setObjectName(QString::fromUtf8("labelUbicacion"));
         labelUbicacion->setGeometry(QRect(550, 60, 241, 20));
         label_3 = new QLabel(centralwidget);
         label_3->setObjectName(QString::fromUtf8("label_3"));
         label_3->setGeometry(QRect(480, 220, 61, 18));
+        label_3->setStyleSheet(QString::fromUtf8("font-weight: bold;"));
         labelUsuario = new QLabel(centralwidget);
         labelUsuario->setObjectName(QString::fromUtf8("labelUsuario"));
         labelUsuario->setGeometry(QRect(540, 220, 261, 20));
         label_4 = new QLabel(centralwidget);
         label_4->setObjectName(QString::fromUtf8("label_4"));
         label_4->setGeometry(QRect(480, 240, 71, 18));
+        label_4->setStyleSheet(QString::fromUtf8("font-weight: bold;"));
         labelIdUsuario = new QLabel(centralwidget);
         labelIdUsuario->setObjectName(QString::fromUtf8("labelIdUsuario"));
         labelIdUsuario->setGeometry(QRect(555, 240, 231, 20));
@@ -101,6 +107,13 @@ public:
         labelAdvertencia->setObjectName(QString::fromUtf8("labelAdvertencia"));
         labelAdvertencia->setGeometry(QRect(480, 290, 181, 18));
         labelAdvertencia->setStyleSheet(QString::fromUtf8("font-size: 8pt; color: red; "));
+        label_5 = new QLabel(centralwidget);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setGeometry(QRect(480, 200, 61, 18));
+        label_5->setStyleSheet(QString::fromUtf8("font-weight: bold;"));
+        labelFecha = new QLabel(centralwidget);
+        labelFecha->setObjectName(QString::fromUtf8("labelFecha"));
+        labelFecha->setGeometry(QRect(525, 200, 261, 20));
         VentanaPrincipal->setCentralWidget(centralwidget);
         menubar = new QMenuBar(VentanaPrincipal);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -127,9 +140,11 @@ public:
         label_4->setText(QCoreApplication::translate("VentanaPrincipal", "Id Usuario:", nullptr));
         labelIdUsuario->setText(QString());
         checkBoxResuelto->setText(QCoreApplication::translate("VentanaPrincipal", "Incidencia Resuelta", nullptr));
-        labelTitulo->setText(QCoreApplication::translate("VentanaPrincipal", "Propiedades de la Incidencia", nullptr));
+        labelTitulo->setText(QCoreApplication::translate("VentanaPrincipal", "Detalles de la Incidencia", nullptr));
         btGuardar->setText(QCoreApplication::translate("VentanaPrincipal", "Guardar Cambios", nullptr));
         labelAdvertencia->setText(QString());
+        label_5->setText(QCoreApplication::translate("VentanaPrincipal", "Fecha:", nullptr));
+        labelFecha->setText(QString());
     } // retranslateUi
 
 };

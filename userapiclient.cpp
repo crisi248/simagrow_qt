@@ -6,6 +6,8 @@
 #include <QUrl>
 #include <QUrlQuery>
 #include <QTimer>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 UserApiClient::UserApiClient(QString correoBuscado, QString passBuscada, QObject * parent): QObject(parent){
 
@@ -14,26 +16,27 @@ UserApiClient::UserApiClient(QString correoBuscado, QString passBuscada, QObject
 	connect(manager,SIGNAL(finished(QNetworkReply *)),
 			this,SLOT(slotRespuestaFinalizada(QNetworkReply *)));
 
-	// JSON TEMPORAL
+	/* JSON TEMPORAL
 	QByteArray jsonFalso = R"({
         "id": 7,
         "nombre": "Pepe",
         "apellidos": "García",
-        "email": "pepe@alu.edu.gva.es",
+        "correo": "pepe@alu.edu.gva.es",
         "admin": true
     })";
     QTimer::singleShot(0, this, [this, jsonFalso]() {
         emit signalUsuarioRecibido(jsonFalso);
     });
+*/
 
-	//fetch(correoBuscado, passBuscada);
+	fetch(correoBuscado, passBuscada);
 }
 
 void UserApiClient::slotRespuestaFinalizada(QNetworkReply * respuesta){
 
 	if (respuesta->error() != QNetworkReply::NoError) {
 		qDebug() << "Error " << respuesta->error() ;
-		emit signalErrorPeticion();
+		emit signalErrorPeticion(QString::number(respuesta->error()));
 		return;
 	}
 
@@ -48,16 +51,20 @@ void UserApiClient::slotRespuestaFinalizada(QNetworkReply * respuesta){
 void UserApiClient::fetch(QString correoBuscado, QString passBuscada) {
     QNetworkRequest request;
     request.setRawHeader("Accept", "application/json");
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
-    //CAMBIAR URL
-    QUrl url("http://localhost:8080/api/users");
-    QUrlQuery query;
-    query.addQueryItem("email", correoBuscado);
-    query.addQueryItem("contrasenya", passBuscada);
-    url.setQuery(query);
-
+    QUrl url("http://68.221.171.14/simagrow/users/login");
     request.setUrl(url);
-    manager->get(request);
+
+    // Construir el JSON body
+    QJsonObject jsonBody;
+    jsonBody["correo"] = correoBuscado;
+    jsonBody["contrasena"] = passBuscada;
+
+    QJsonDocument doc(jsonBody);
+    QByteArray data = doc.toJson();
+
+    manager->post(request, data);  // POST con body, no GET con query params
 }
 
 

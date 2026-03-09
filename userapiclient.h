@@ -20,7 +20,7 @@ public slots:
 
 signals:
 	void signalUsuarioRecibido(QByteArray);
-	void signalErrorPeticion();
+	void signalErrorPeticion(QString);
 };
 
 

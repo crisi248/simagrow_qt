@@ -5,9 +5,9 @@
 class Incidencia {
 
 public:
-    Incidencia(int, QString, QString, QString, bool, int, QString);
+    Incidencia(int, QString, QString, QString, bool, int, QString, QString);
     int idIncidencia, idUsuarioReporte;
-    QString titulo, nombreUsuarioReporte, descripcion, ubicacion;
+    QString titulo, nombreUsuarioReporte, descripcion, ubicacion, fecha;
     bool resuelta;
 };
 #endif

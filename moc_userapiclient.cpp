@@ -62,14 +62,14 @@ static const uint qt_meta_data_UserApiClient[] = {
 
  // signals: name, argc, parameters, tag, flags
        1,    1,   29,    2, 0x06 /* Public */,
-       3,    0,   32,    2, 0x06 /* Public */,
+       3,    1,   32,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    1,   33,    2, 0x0a /* Public */,
+       4,    1,   35,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QByteArray,    2,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    2,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 5,    6,
@@ -84,7 +84,7 @@ void UserApiClient::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         (void)_t;
         switch (_id) {
         case 0: _t->signalUsuarioRecibido((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
-        case 1: _t->signalErrorPeticion(); break;
+        case 1: _t->signalErrorPeticion((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 2: _t->slotRespuestaFinalizada((*reinterpret_cast< QNetworkReply*(*)>(_a[1]))); break;
         default: ;
         }
@@ -109,7 +109,7 @@ void UserApiClient::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
             }
         }
         {
-            using _t = void (UserApiClient::*)();
+            using _t = void (UserApiClient::*)(QString );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&UserApiClient::signalErrorPeticion)) {
                 *result = 1;
                 return;
@@ -166,9 +166,10 @@ void UserApiClient::signalUsuarioRecibido(QByteArray _t1)
 }
 
 // SIGNAL 1
-void UserApiClient::signalErrorPeticion()
+void UserApiClient::signalErrorPeticion(QString _t1)
 {
-    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

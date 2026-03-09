@@ -37,11 +37,11 @@ void VentanaPrincipal::slotGuardarIncidencia() {
 
     // Actualizar valor local
     incidenciaActual->resuelta = checkBoxResuelto->isChecked();
-        /*
+
     // Enviar cambio a la API
     IncidenciasApiClient *client = new IncidenciasApiClient(this);
     client->updateResuelta(incidenciaActual->idIncidencia);
-        */
+
     cambioSinGuardar = false;
     labelAdvertencia->clear();
     reiniciarLista(TODOS);
@@ -71,6 +71,7 @@ void VentanaPrincipal::slotCargarDatosIncidencia(QListWidgetItem* item) {
         textoDescripcion->setText(incidenciaActual->descripcion);
         labelUsuario->setText(incidenciaActual->nombreUsuarioReporte);
         labelIdUsuario->setText(QString::number(incidenciaActual->idUsuarioReporte));
+        labelFecha->setText(incidenciaActual->fecha);
 
         labelAdvertencia->clear();
         disconnect(checkBoxResuelto, SIGNAL(stateChanged(int)), this, SLOT(slotResolverIncidencia(int)));
